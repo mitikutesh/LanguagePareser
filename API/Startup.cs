@@ -4,9 +4,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 [assembly: WebJobsStartup(typeof(Startup))]
 namespace API
@@ -21,7 +18,6 @@ namespace API
             //builder.AddAzureKeyVault(config["AzureKeyVault_Uri"], 
             //    config["AzureKeyVault_ClientId"], 
             //    config["AzureKeyVault_ClientSecret"]);
-
         }
     }
 }

@@ -16,7 +16,7 @@ namespace API
 {
     public static class Translator
     {
-        [FunctionName("TranslatorFunction")]
+        [FunctionName("TranslateFunction")]
         [ExponentialBackoffRetry(2, "00:00:04", "00:15:00")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "translations/{lang}/{code}")] HttpRequest req,
