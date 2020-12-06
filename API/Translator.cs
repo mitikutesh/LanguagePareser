@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Storage.Blob;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -31,6 +32,11 @@ namespace API
             try
             {
                 log.LogInformation("C# HTTP trigger function processed a request.");
+                if (!code.StartsWith("Common_") || string.IsNullOrEmpty(lang))
+                {
+                    log.LogError("please check url parameters");
+                    return new OkObjectResult(null);
+                }
                 var codeSub = code.Substring("Common_".Length);
 
                 XmlDocument doc = new XmlDocument();
@@ -44,10 +50,6 @@ namespace API
                         responseMessage = elemList[i].InnerXml;
                     }
                 }
-
-                responseMessage = string.IsNullOrEmpty(lang)
-                    ? "This HTTP triggered function executed successfully. Pass a propery url parameter in the url string."
-                    : responseMessage;
 
                 return new OkObjectResult(responseMessage);
             }
