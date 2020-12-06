@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useRef, useEffect } from "react";
+import "./style/app.scss";
+import Localization from "./service/Localization";
 
 function App() {
+  const [okTxt, setOkTxt] = useState("OK");
+  const [cancelTxt, setCancelTxt] = useState("Cancel");
+  const [lang, setLang] = useState("en");
+
+  useEffect(() => {
+    async function loadDataAsync() {
+      let btntxt = "";
+      let canceltxt = "";
+      try {
+        btntxt = await Localization(`${lang}/Common_OKButtonText`);
+        canceltxt = await Localization(`${lang}/Common_CancelButtonText`);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setOkTxt(btntxt);
+        setCancelTxt(canceltxt);
+      }
+    }
+    loadDataAsync();
+  }, [lang]);
+
+  const changeName = (val) => {
+    setLang(`${val}`);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="jumbotron">
+        <button onClick={() => changeName("en")}>English</button>
+        <button onClick={() => changeName("fi")}>Finnish</button>
+      </div>
+      <div className="container">
+        <button>{okTxt}</button>
+        <button>{cancelTxt}</button>
+      </div>
     </div>
   );
 }

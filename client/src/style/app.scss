@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.jumbotron {
+  min-height: 20vh;
+  background-color: lightblue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  button {
+    min-height: 5vh;
+    min-width: 20vh;
+    padding-top: 0.5%;
+
+    align-items: center;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2vh;
+  button {
+    min-height: 5vh;
+    min-width: 10vh;
+    padding-top: 0.5%;
+  }
+}
